@@ -61,7 +61,7 @@ def save_in_chunks(data, chunk_size, stride, save_dir, filename):
         if len(chunk_data) < chunk_size:
             break
 
-        chunk_dir = os.path.join(save_dir, f'{i // 5 + 1}')
+        chunk_dir = os.path.join(save_dir, f'{i // stride + 1}')
         if not os.path.exists(chunk_dir):
             os.makedirs(chunk_dir)
         
@@ -74,7 +74,7 @@ with open('sync_data.json', 'r') as f:
     meta = json.load(f)
 
 raw_path = 'dataset/raw'
-out_dir = 'dataset/resampled'
+out_dir = 'dataset/resampled_stride25'
 
 for i in range(6):
     subject = f'Subject{i}'
@@ -99,7 +99,7 @@ for i in range(6):
         elif len(smoothed_emg) > resampled_skl.shape[0]:
             smoothed_emg = smoothed_emg.iloc[:resampled_skl.shape[0], :]
 
-        save_in_chunks(smoothed_emg.values, chunk_size=125, stride=5, save_dir=os.path.join(out_dir, subject, skl_filename[:-4]), filename='emg_values.npy')
-        save_in_chunks(resampled_skl, chunk_size=125, stride=5, save_dir=os.path.join(out_dir, subject, skl_filename[:-4]), filename='3d_skeleton.npy')
+        save_in_chunks(smoothed_emg.values, chunk_size=125, stride=25, save_dir=os.path.join(out_dir, subject, skl_filename[:-4]), filename='emg_values.npy')
+        save_in_chunks(resampled_skl, chunk_size=125, stride=25, save_dir=os.path.join(out_dir, subject, skl_filename[:-4]), filename='3d_skeleton.npy')
 
         

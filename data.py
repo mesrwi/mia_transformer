@@ -63,38 +63,23 @@ class MuscleDataset(torch.utils.data.Dataset):
         person = filepath.split("/")[2]
         
         subject_dict = {
-            'Subject0': {'max': np.array([100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0]),
-                         'min': np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]),
-                         'condval': np.array([1.0])},
+            'Subject0': {'condval': np.array([1.0])},
 
-            'Subject1': {'max': np.array([100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0]),
-                         'min': np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]),
-                         'condval': np.array([0.85])},
+            'Subject1': {'condval': np.array([0.85])},
 
-            'Subject2': {'max': np.array([100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0]),
-                         'min': np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]),
-                         'condval': np.array([0.68])},
+            'Subject2': {'condval': np.array([0.68])},
 
-            'Subject3': {'max': np.array([100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0]),
-                         'min': np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]),
-                         'condval': np.array([0.51])},
+            'Subject3': {'condval': np.array([0.51])},
 
-            'Subject4': {'max': np.array([100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0]),
-                         'min': np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]),
-                         'condval': np.array([0.34])},
+            'Subject4': {'condval': np.array([0.34])},
 
-            'Subject5': {'max': np.array([100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0]),
-                         'min': np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]),
-                         'condval': np.array([0.17])}
+            'Subject5': {'condval': np.array([0.17])}
         }
-        themax = subject_dict[person]['max']
-        themin = subject_dict[person]['min']
+        
         if self.cond:
             condval = subject_dict[person]['condval']
         
         result = {'condval':condval,
-                'max': themax,
-                'min':themin,
                 'emg_values': emg_values.transpose(1,0),
                 'filepath': filepath,
                 '3dskeleton': threed_joints[:,:,:],
